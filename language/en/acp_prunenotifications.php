@@ -19,7 +19,7 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, [
-	'PRUNENOTIFICATIONS_TITLE_EXPLAIN'	=> 'Deletes the notifications of members who have not visited for a long time, then optimizes the notifications table. phpBB already deletes read notifications after the “Read notification expiration” time in the Load settings; unread notifications of members who never come back stay forever. Only notifications are deleted, never accounts, notification settings or subscriptions. Take a database backup before the first prune.',
+	'PRUNENOTIFICATIONS_TITLE_EXPLAIN'	=> 'Deletes the notifications of members who have not visited for a long time, then optimizes the notifications table. phpBB already deletes read notifications after the “Read Notification Expiration” time in General » Server configuration » Load settings; unread notifications of members who never come back stay forever. Only notifications are deleted, never accounts, notification settings or subscriptions. Take a database backup before the first prune.',
 
 	'PRUNENOTIFICATIONS_STATUS'			=> 'Notifications table',
 	'PRUNENOTIFICATIONS_TOTAL'			=> 'Notifications in the table',

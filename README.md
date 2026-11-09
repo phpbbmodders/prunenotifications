@@ -4,7 +4,7 @@
 
 Deletes the notifications of members who have not visited for a long time, then optimizes the notifications table.
 
-phpBB already deletes read notifications after the **Read notification expiration** time. Unread notifications of members who never come back are kept forever, and on a large board they can fill most of the notifications table.
+phpBB already deletes read notifications after the **Read Notification Expiration** time in **ACP → General → Server configuration → Load settings**. Unread notifications of members who never come back are kept forever, and on a large board they can fill most of the notifications table.
 
 ## Features
 

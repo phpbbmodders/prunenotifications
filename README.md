@@ -18,6 +18,17 @@ phpBB already deletes read notifications after the **Read notification expiratio
   - MSSQL: rebuilds the table's indexes
 - Only notifications are deleted. Accounts, notification settings and subscriptions are not touched, so a member who comes back starts with an empty notification list.
 
+## Screenshots
+
+<table>
+<tr>
+<td><a href="docs/images/screenshots/prunenotifications-acp.png"><img src="docs/images/screenshots/prunenotifications-acp.png" width="440" height="312" alt="Prune notifications page in the ACP"></a></td>
+<td><a href="docs/images/screenshots/prunenotifications-acp-done.png"><img src="docs/images/screenshots/prunenotifications-acp-done.png" width="440" height="310" alt="Message after pruning and optimizing"></a></td>
+</tr>
+</table>
+
+Click an image for the full size. See the [screenshot gallery](docs/images/screenshots/README.md) for captions.
+
 ## Requirements
 
 - phpBB 3.3.19 or later, including phpBB 4.0

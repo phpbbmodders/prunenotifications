@@ -1,0 +1,114 @@
+name: Tests
+
+# For most extensions, this workflow should not need changing;
+# simply commit it to your repository.
+#
+# See the README for full details and configuration instructions:
+#  - https://github.com/phpbb-extensions/test-framework
+#
+on:
+  push:
+    # Run tests when commits are pushed to these branches in your repo,
+    # or remove this branches section to run tests on all your branches
+    branches:
+      - main
+
+  pull_request:
+    # Run tests when pull requests are made on these branches in your repo,
+    # or remove this branches section to run tests on all your branches
+    branches:
+      - main
+
+jobs:
+  call-tests:
+    name: Extension tests (phpBB 3.3.x)
+    uses: phpbb-extensions/test-framework/.github/workflows/tests.yml@3.3.x
+    with:
+      EXTNAME: phpbbmodders/prunenotifications   # Your extension vendor/package name (required)
+
+      # OPTIONAL CONFIGURATIONS BELOW
+      # The following arguments are optional and can be omitted if not needed.
+
+      # The phpBB repository's branch to use when running tests.
+      # Default is '3.3.x', which this framework is designed for.
+      # If using a different branch, ensure it's compatible with 3.3.x.
+      # To test with phpBB's master branch, refer to the phpBB Branches section of this README.
+      # Default: '3.3.x'
+      PHPBB_BRANCH: '3.3.x'
+
+      # Run phpBB's EPV (Extension Pre Validator) here? The epv job below runs it instead. 1 (yes) or 0 (no)
+      EPV: 0
+
+      # Check for files with executable permissions? 1 (yes) or 0 (no)
+      EXECUTABLE_FILES: 1
+
+      # Remove embedded ICC profiles from images? 1 (yes) or 0 (no)
+      IMAGE_ICC: 1
+
+      # Run CodeSniffer to detect PHP code style issues? 1 (yes) or 0 (no)
+      SNIFF: 1
+
+      # Run MySQL/MariaDB tests? 1 (yes) or 0 (no)
+      RUN_MYSQL_JOBS: 1
+
+      # Run PostgreSQL tests? 1 (yes) or 0 (no)
+      RUN_PGSQL_JOBS: 1
+
+      # Run MSSQL and SQLite3 tests? 1 (yes) or 0 (no)
+      # SQLite3 is bundled into this job group.
+      RUN_MSSQL_JOBS: 1
+
+      # Run Windows IIS & PostgreSQL tests? 1 (yes) or 0 (no)
+      RUN_WINDOWS_JOBS: 1
+
+      # Run functional tests if you have them? 1 (yes) or 0 (no)
+      RUN_FUNCTIONAL_TESTS: 0
+
+      # Install npm dependencies (if your extension relies on them)? 1 (yes) or 0 (no)
+      RUN_NPM_INSTALL: 0
+
+      # Install Composer dependencies (if your extension relies on them)? 1 (yes) or 0 (no)
+      RUN_COMPOSER_INSTALL: 0
+
+      # CUSTOMISE PHP VERSIONS
+      # Test only PHP versions supported by the extension's security minimum.
+
+      # Preferred PHP version used for all test jobs.
+      PRIMARY_PHP_VERSION: '8.3'
+
+      # The MySQL and PostgreSQL jobs run tests across multiple PHP versions.
+      # List the PHP versions you want your extension tested with.
+      PHP_VERSION_MATRIX: '["8.3", "8.4"]'
+
+      # Generate a code coverage report (see documentation below)? 1 (yes) or 0 (no)
+      CODECOV: 0
+
+  call-tests-master:
+    name: Extension tests (phpBB master / 4.0)
+    uses: phpbb-extensions/test-framework/.github/workflows/tests.yml@master
+    with:
+      EXTNAME: phpbbmodders/prunenotifications
+      PHPBB_BRANCH: 'master'
+      EPV: 0
+      EXECUTABLE_FILES: 1
+      IMAGE_ICC: 1
+      SNIFF: 1
+      RUN_MYSQL_JOBS: 1
+      RUN_PGSQL_JOBS: 1
+      RUN_MSSQL_JOBS: 1
+      RUN_WINDOWS_JOBS: 1
+      RUN_FUNCTIONAL_TESTS: 0
+      RUN_NPM_INSTALL: 0
+      RUN_COMPOSER_INSTALL: 0
+      # The extension requires PHP 8.3.36 or later, including on phpBB 4.0.
+      PRIMARY_PHP_VERSION: '8.3'
+      PHP_VERSION_MATRIX: '["8.3", "8.4"]'
+      CODECOV: 0
+
+  # EPV (Extension Pre Validator), failing on any Fatal or Error finding not
+  # listed in .github/epv-allowed.txt
+  epv:
+    uses: phpbbmodders/.github/.github/workflows/epv.yml@v1
+    with:
+      EXTNAME: phpbbmodders/prunenotifications
+      PHPBB_BRANCHES: '["3.3.x", "master"]'

@@ -1,0 +1,38 @@
+{
+    "name": "phpbbmodders/prunenotifications",
+    "type": "phpbb-extension",
+    "description": "Deletes the notifications of members who have not visited for a long time, then optimizes the notifications table.",
+    "homepage": "https://www.phpbbmodders.com/",
+    "version": "1.0.0-dev",
+    "time": "2026-11-09",
+    "keywords": [
+        "phpbb",
+        "extension",
+        "notifications",
+        "prune",
+        "database",
+        "optimize"
+    ],
+    "license": "GPL-2.0-only",
+    "authors": [
+        {
+            "name": "phpBB Modders",
+            "email": "board@phpbbmodders.com",
+            "homepage": "https://www.phpbbmodders.com/",
+            "role": "Extension Developer"
+        }
+    ],
+    "require": {
+        "php": ">=8.3.36",
+        "composer/installers": "^1.0 || ^2.0"
+    },
+    "require-dev": {
+        "phpbb/epv": "dev-master"
+    },
+    "extra": {
+        "display-name": "Prune Notifications",
+        "soft-require": {
+            "phpbb/phpbb": ">=3.3.19"
+        }
+    }
+}

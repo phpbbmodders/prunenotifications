@@ -1,0 +1,79 @@
+{% INCLUDE 'overall_header.html' %}
+
+<h1>{{ lang('ACP_PRUNENOTIFICATIONS') }}</h1>
+
+<p>{{ lang('PRUNENOTIFICATIONS_TITLE_EXPLAIN') }}</p>
+
+{% if S_ERROR %}
+	<div class="errorbox">
+		<h3>{{ lang('WARNING') }}</h3>
+		<p>{{ ERROR_MSG }}</p>
+	</div>
+{% endif %}
+
+<fieldset>
+	<legend>{{ lang('PRUNENOTIFICATIONS_STATUS') }}</legend>
+	<dl>
+		<dt><label>{{ lang('PRUNENOTIFICATIONS_TOTAL') }}{{ lang('COLON') }}</label></dt>
+		<dd><strong>{{ TOTAL_COUNT }}</strong></dd>
+	</dl>
+	<dl>
+		<dt><label>{{ lang('PRUNENOTIFICATIONS_DORMANT') }}{{ lang('COLON') }}</label><br><span>{{ lang('PRUNENOTIFICATIONS_DORMANT_EXPLAIN', CUTOFF_DATE) }}</span></dt>
+		<dd><strong>{{ DORMANT_COUNT }}</strong></dd>
+	</dl>
+	<dl>
+		<dt><label>{{ lang('PRUNENOTIFICATIONS_UNOPTIMIZED') }}{{ lang('COLON') }}</label></dt>
+		<dd><strong>{{ UNOPTIMIZED_COUNT }}</strong></dd>
+	</dl>
+	<dl>
+		<dt><label>{{ lang('PRUNENOTIFICATIONS_LAST_OPTIMIZE') }}{{ lang('COLON') }}</label></dt>
+		<dd><strong>{{ LAST_OPTIMIZE }}</strong></dd>
+	</dl>
+</fieldset>
+
+<form id="prunenotifications_actions" method="post" action="{{ U_ACTION }}">
+	<fieldset>
+		<legend>{{ lang('PRUNENOTIFICATIONS_ACTIONS') }}</legend>
+		<dl>
+			<dt><label for="prunenotifications_prune">{{ lang('PRUNENOTIFICATIONS_PRUNE') }}{{ lang('COLON') }}</label><br><span id="prunenotifications_prune_explain">{{ lang('PRUNENOTIFICATIONS_PRUNE_EXPLAIN') }}</span></dt>
+			<dd><input class="button2" type="submit" id="prunenotifications_prune" name="prune" value="{{ lang('PRUNENOTIFICATIONS_PRUNE') }}" aria-describedby="prunenotifications_prune_explain"></dd>
+		</dl>
+		<dl>
+			<dt><label for="prunenotifications_optimize">{{ lang('PRUNENOTIFICATIONS_OPTIMIZE') }}{{ lang('COLON') }}</label><br><span id="prunenotifications_optimize_explain">{{ lang('PRUNENOTIFICATIONS_OPTIMIZE_EXPLAIN') }}</span></dt>
+			<dd>{% if S_CAN_OPTIMIZE %}<input class="button2" type="submit" id="prunenotifications_optimize" name="optimize" value="{{ lang('PRUNENOTIFICATIONS_OPTIMIZE') }}" aria-describedby="prunenotifications_optimize_explain">{% else %}{{ lang('PRUNENOTIFICATIONS_OPTIMIZE_UNSUPPORTED') }}{% endif %}</dd>
+		</dl>
+	</fieldset>
+</form>
+
+<form id="prunenotifications_settings" method="post" action="{{ U_ACTION }}">
+	<fieldset>
+		<legend>{{ lang('SETTINGS') }}</legend>
+		<dl>
+			<dt><label for="prunenotifications_days">{{ lang('PRUNENOTIFICATIONS_DAYS') }}{{ lang('COLON') }}</label><br><span id="prunenotifications_days_explain">{{ lang('PRUNENOTIFICATIONS_DAYS_EXPLAIN') }}</span></dt>
+			<dd><input id="prunenotifications_days" name="prunenotifications_days" type="number" min="{{ DAYS_MIN }}" max="{{ DAYS_MAX }}" value="{{ PRUNENOTIFICATIONS_DAYS }}" aria-describedby="prunenotifications_days_explain"> {{ lang('DAYS') }}</dd>
+		</dl>
+		<dl>
+			<dt><label for="prunenotifications_batch">{{ lang('PRUNENOTIFICATIONS_BATCH') }}{{ lang('COLON') }}</label><br><span id="prunenotifications_batch_explain">{{ lang('PRUNENOTIFICATIONS_BATCH_EXPLAIN') }}</span></dt>
+			<dd><input id="prunenotifications_batch" name="prunenotifications_batch" type="number" min="{{ BATCH_MIN }}" max="{{ BATCH_MAX }}" value="{{ PRUNENOTIFICATIONS_BATCH }}" aria-describedby="prunenotifications_batch_explain"></dd>
+		</dl>
+		<dl>
+			<dt><label for="prunenotifications_cron_enable">{{ lang('PRUNENOTIFICATIONS_CRON') }}{{ lang('COLON') }}</label><br><span>{{ lang('PRUNENOTIFICATIONS_CRON_EXPLAIN') }}</span></dt>
+			<dd><label><input type="radio" class="radio" id="prunenotifications_cron_enable" name="prunenotifications_cron_enable" value="1"{% if S_PRUNENOTIFICATIONS_CRON %} checked{% endif %}> {{ lang('YES') }}</label>
+				<label><input type="radio" class="radio" name="prunenotifications_cron_enable" value="0"{% if not S_PRUNENOTIFICATIONS_CRON %} checked{% endif %}> {{ lang('NO') }}</label></dd>
+		</dl>
+		<dl>
+			<dt><label for="prunenotifications_auto_optimize">{{ lang('PRUNENOTIFICATIONS_AUTO_OPTIMIZE') }}{{ lang('COLON') }}</label><br><span>{{ lang('PRUNENOTIFICATIONS_AUTO_OPTIMIZE_EXPLAIN') }}</span></dt>
+			<dd>{% if S_CAN_OPTIMIZE %}<label><input type="radio" class="radio" id="prunenotifications_auto_optimize" name="prunenotifications_auto_optimize" value="1"{% if S_PRUNENOTIFICATIONS_AUTO_OPTIMIZE %} checked{% endif %}> {{ lang('YES') }}</label>
+				<label><input type="radio" class="radio" name="prunenotifications_auto_optimize" value="0"{% if not S_PRUNENOTIFICATIONS_AUTO_OPTIMIZE %} checked{% endif %}> {{ lang('NO') }}</label>{% else %}{{ lang('PRUNENOTIFICATIONS_OPTIMIZE_UNSUPPORTED') }}{% endif %}</dd>
+		</dl>
+	</fieldset>
+
+	<fieldset class="submit-buttons">
+		<legend>{{ lang('SUBMIT') }}</legend>
+		<input class="button1" type="submit" id="submit" name="submit" value="{{ lang('SUBMIT') }}">&nbsp;
+		<input class="button2" type="reset" id="reset" name="reset" value="{{ lang('RESET') }}">
+		{{ S_FORM_TOKEN }}
+	</fieldset>
+</form>
+
+{% INCLUDE 'overall_footer.html' %}

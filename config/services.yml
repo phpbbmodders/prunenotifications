@@ -1,0 +1,31 @@
+services:
+    phpbbmodders.prunenotifications.pruner:
+        class: phpbbmodders\prunenotifications\pruner
+        arguments:
+            - '@config'
+            - '@dbal.conn'
+            - '%tables.notifications%'
+            - '%tables.users%'
+
+    phpbbmodders.prunenotifications.cron.task.prune:
+        class: phpbbmodders\prunenotifications\cron\task\prune
+        arguments:
+            - '@config'
+            - '@log'
+            - '@phpbbmodders.prunenotifications.pruner'
+            - '@user'
+        calls:
+            - [set_name, [cron.task.phpbbmodders.prunenotifications.prune]]
+        tags:
+            - { name: cron.task }
+
+    phpbbmodders.prunenotifications.admin.controller:
+        class: phpbbmodders\prunenotifications\controller\admin_controller
+        arguments:
+            - '@config'
+            - '@language'
+            - '@log'
+            - '@phpbbmodders.prunenotifications.pruner'
+            - '@request'
+            - '@template'
+            - '@user'

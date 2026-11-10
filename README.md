@@ -32,7 +32,7 @@ Click an image for the full size. See the [screenshot gallery](docs/images/scree
 ## Requirements
 
 - phpBB 3.3.19 or later, including phpBB 4.0
-- PHP 8.3.36 or later
+- PHP 8.1 or later
 - MySQL, MariaDB, PostgreSQL, SQLite or MSSQL
 
 ## Installation
